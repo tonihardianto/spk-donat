@@ -1,5 +1,5 @@
 <div class="navbar nav_title" style="border: 0;">
-	<a href="<?php echo base_url(); ?>" class="site_title"><i class="fa fa-paw"></i> <span>Donat is Bulat</span></a>
+	<a href="<?php echo base_url('dashboard'); ?>" class="site_title"><img width="25px" height="25px" src="<?php echo base_url('assets/images/icon.png') ?>" alt=""> <span>Donat is Bulat</span></a>
 </div>
 
 <div class="clearfix"></div>
@@ -11,6 +11,6 @@
 	</div>
 	<div class="profile_info">
 		<span>Welcome,</span>
-		<h2>Administrator</h2>
+		<h2><?php echo $this->session->userdata('ses_name'); ?></h2>
 	</div>
 </div>

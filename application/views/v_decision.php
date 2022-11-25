@@ -7,8 +7,9 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="icon" href="<?php echo base_url('assets/images/icon.png'); ?>" type="image/ico" />
 
-	<title>Gentelella Alela! | </title>
+	<title>Decision Maker - Result </title>
 
 	<!-- Bootstrap -->
 	<link href="<?= base_url().'assets/vendors/bootstrap/dist/css/bootstrap.min.css';?>" rel="stylesheet">
@@ -31,6 +32,8 @@
 		rel="stylesheet">
 	<link href="<?= base_url().'assets/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css';?>"
 		rel="stylesheet">
+	
+	<link href="<?php echo base_url().'/assets/js/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css'?>" rel="stylesheet" >
 
 	<!-- Custom Theme Style -->
 	<link href="<?= base_url().'assets/build/css/custom.min.css';?>" rel="stylesheet">
@@ -90,6 +93,8 @@
 									<div class="clearfix"></div>
 								</div>
 								<div class="x_content">
+									<div style="text-align: right;"> <button class="btn btn-info" data-toggle="modal" data-target="#print"> Print <i class="fa fa-print"></i></button></div>
+									<div class="clearfix"></div>
 									<br />
 									<!-- content here -->
 									<table id="datatable-responsive"
@@ -107,7 +112,7 @@
 										</thead>
 										<tbody>
                                             <?php
-											$no=0;
+											$no=1;
 											foreach($data->result_array() as $row):
 											?>
 											<tr>
@@ -126,6 +131,55 @@
 					</div>
 				</div>
 			</div>
+
+			<!-- Modal Print -->
+			<div id="print" class="modal fade bs-example-modal-md" tabindex="-1" role="dialog" aria-hidden="true"
+            	style="display: none;">
+            	<div class="modal-dialog modal-md">
+            		<div class="modal-content">
+
+            			<div class="modal-header">
+            				<h4 class="modal-title" id="add">Buat Laporan Produksi</h4>
+            				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+            						aria-hidden="true">×</span>
+            				</button>
+            			</div>
+            			<div class="modal-body">
+            				<!-- form tambah user -->
+                            <div class="x_content">
+									<br />
+									<form method="POST" action="<?php echo base_url('report/print') ?>" id="form-hitung" target="_blank" data-parsley-validate autocomplete="off" class="form-horizontal form-label-left">
+
+										<div class="item form-group">
+											<label class="col-form-label col-md-3 col-sm-3 label-align" for="tanggal1">Tanggal awal: <span class="required">*</span>
+											</label>
+											<div class="col-md-8 col-sm-8 ">
+											<input type="text" name="tanggal1" id="tanggal1" class="form-control" placeholder="mm-dd-yyyy" required>
+											<span class="fa fa-calendar form-control-feedback right" aria-hidden="true"></span>
+											</div>
+										</div>
+
+										<div class="item form-group">
+											<label class="col-form-label col-md-3 col-sm-3 label-align" for="tanggal2">Tanggal akhir:  <span class="required">*</span>
+											</label>
+											<div class="col-md-8 col-sm-8 ">
+												<input type="text" name="tanggal2" id="tanggal2" required="required" class="form-control" placeholder="mm-dd-yyyy">
+												<span class="fa fa-calendar form-control-feedback right" aria-hidden="true"></span>
+											</div>
+										</div>
+										
+										<!-- <div class="ln_solid"></div> -->
+								</div>
+            			</div>
+            			<div class="modal-footer">
+            				<button type="button" class="btn btn-secondary" data-dismiss="modal">Batal <i class="fa fa-close"></i></button>
+            				<button type="submit" class="btn btn-primary">Print <i class="fa fa-print"></i></button>
+            			</div>
+                        </form>
+
+            		</div>
+            	</div>
+            </div>
 			<!-- /page content -->
 
 			<!-- footer content -->
@@ -169,9 +223,37 @@
 	<script src="<?= base_url().'assets/vendors/jszip/dist/jszip.min.js';?>"></script>
 	<script src="<?= base_url().'assets/vendors/pdfmake/build/pdfmake.min.js';?>"></script>
 	<script src="<?= base_url().'assets/vendors/pdfmake/build/vfs_fonts.js';?>"></script>
+    <script src="<?= base_url().'assets/vendors/moment/min/moment.min.js'?>"></script>
+    <script src="<?php echo base_url().'/assets/js/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js'?>"></script>
+
 
 	<!-- Custom Theme Scripts -->
 	<script src="<?= base_url().'assets/build/js/custom.min.js'; ?>"></script>
+
+	<script>
+		$('#tanggal1').datepicker({
+        format: 'yyyy-mm-dd',
+		todayHighlight: true,
+		autoclose: true,
+   		});
+
+		$('#tanggal2').datepicker({
+        format: 'yyyy-mm-dd',
+		todayHighlight: true,
+		autoclose: true,
+   		});
+
+		 $(function () {
+            // function tanggal
+            $("#tanggal1").on('changeDate', function (selected) {
+                var startDate = new Date(selected.date.valueOf());
+                $("#tanggal2").datepicker('setStartDate', startDate);
+                if ($("#tanggal1").val() > $("#tanggal2").val()) {
+                    $("#tanggal2").val($("#tanggal1").val());
+                }
+            });
+		});
+	</script>
 </body>
 
 </html>

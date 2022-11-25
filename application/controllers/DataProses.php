@@ -3,14 +3,14 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class DataProses extends CI_Controller {
+class Dataproses extends CI_Controller {
     function __construct()
     {
         parent::__construct();
-        // if ($this->session->userdata('loggedin') != true) {
-        //     $url = base_url().'admin/Login';
-        //     redirect($url);
-        // }
+        if ($this->session->userdata('loggedin') != true) {
+            $url = base_url().'login';
+            redirect($url);
+        }
         $this->load->model('m_dataproses');
         
     }
@@ -285,8 +285,10 @@ class DataProses extends CI_Controller {
         $data['x'] = 'y-content';
         $data['y'] = 'form-hilang';
 
+        $user_id = $this->session->userdata('ses_id');
+        $created_at = date('Y-m-d H:i:s');
 
-        $this->m_dataproses->insertPrediksi($tanggal, $permintaan, $persediaan, $produksi, $adonan);
+        $this->m_dataproses->insertPrediksi($tanggal, $permintaan, $persediaan, $produksi, $adonan, $user_id, $created_at);
         $this->load->view('v_createData', $data);
 
     }

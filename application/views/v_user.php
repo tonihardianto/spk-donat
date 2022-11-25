@@ -7,6 +7,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="icon" href="<?php echo base_url('assets/images/icon.png'); ?>" type="image/ico" />
 
 	<title> <?php echo $title; ?> </title>
 
@@ -68,8 +69,14 @@
 					<div class="row">
 						<div class="col-md-12 col-sm-12 ">
 							<div class="x_panel">
+								<!-- <div class="alert alert-warning alert-dismissible " role="alert">
+									<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+											aria-hidden="true">×</span>
+									</button>
+									<strong style="color: red;">Warning! <i class="fa fa-warning"></i></strong> This page is under development. Dont make any change!
+								</div> -->
 								<div class="x_title">
-									<h2>Hasil Prediksi Produksi Donat</h2>
+									<h2>Halaman Data Pengguna</h2>
 									<ul class="nav navbar-right panel_toolbox">
                                         <li><a href="#tambahdata" data-target="#tambahdata" data-toggle="modal" class="btn btn-info">Tambah Data <i class="fa fa-plus"></i></a></li>
 										<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
@@ -99,10 +106,10 @@
 										<thead>
 											<tr>
 												<th>No</th>
-												<th>Tanggal</th>
-												<th>Permintaan</th>
-												<th>Persediaan</th>
-												<!-- <th>Produksi</th> -->
+												<th>Username</th>
+												<th>Nama lengkap</th>
+												<th>Level akses</th>
+												<th>Aksi</th>
 											</tr>
 										</thead>
 										<tbody>
@@ -113,9 +120,12 @@
 											<tr>
 												<td><?php echo $no++ ?></td>
 												<td><?php echo $row['user_username'] ?></td>
-												<td><b><?php echo $row['user_fullname'] ?></b> Pcs</td>
-												<td><b><?php echo $row['user_level'] ?></b> Pcs</td>
-												<!-- <td><b><?php echo $row['produksi'] ?></b> Pcs</td> -->
+												<td><b><?php echo $row['user_fullname'] ?></b></td>
+												<td><b><?php echo $row['user_level'] ?></b></td>
+												<td style="text-align: center;">
+													<button data-toggle="modal" data-target="#update<?php echo $row['user_id'] ?>"  class="btn btn-sm btn-info"> Update <i class="fa fa-edit"></i></button>
+													<button data-toggle="modal" data-target="#delete<?php echo $row['user_id'] ?>"  class="btn btn-sm btn-danger"> Delete <i class="fa fa-trash"></i></button>
+												</td>
 											<?php endforeach; ?>
 										</tbody>
 									</table>
@@ -126,59 +136,54 @@
 				</div>
 			</div>
 
-            <!-- modal tambah dataset -->
-            <div id="tambahdata" class="modal fade bs-example-modal-md" tabindex="-1" role="dialog" aria-hidden="true"
+            <!-- modal tambah User -->
+            <div id="tambahdata" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true"
             	style="display: none;">
-            	<div class="modal-dialog modal-md">
+            	<div class="modal-dialog modal-lg">
             		<div class="modal-content">
 
             			<div class="modal-header">
-            				<h4 class="modal-title" id="add">Tambah Data Sample</h4>
+            				<h4 class="modal-title" id="add">Tambah Data User</h4>
             				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
             						aria-hidden="true">×</span>
             				</button>
             			</div>
             			<div class="modal-body">
-            				<!-- form data sample -->
+            				<!-- form tambah user -->
                             <div class="x_content">
 									<br />
-									<form method="POST" action="<?php echo base_url('dataset/insertDataset') ?>" id="form-hitung" data-parsley-validate class="form-horizontal form-label-left">
+									<form method="POST" action="<?php echo base_url('user/insertUser') ?>" id="form-hitung" data-parsley-validate class="form-horizontal form-label-left">
 
-                                        <div class="item form-group">
-											<label class="col-form-label col-md-3 col-sm-3 label-align">Tanggal <span class="required">*</span>
+										<div class="item form-group">
+											<label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name">Nama Lengkap <span class="required">*</span>
 											</label>
 											<div class="col-md-8 col-sm-8 ">
-												<input id="birthday" name="tanggal" class="date-picker form-control" placeholder="dd-mm-yyyy" type="text" required="required" type="text" onfocus="this.type='date'" onmouseover="this.type='date'" onclick="this.type='date'" onblur="this.type='text'" onmouseout="timeFunctionLong(this)">
-												<script>
-													function timeFunctionLong(input) {
-														setTimeout(function() {
-															input.type = 'text';
-														}, 60000);
-													}
-												</script>
+												<input type="text" name="user_fullname" id="first-name" required="required" class="form-control ">
 											</div>
 										</div>
 
 										<div class="item form-group">
-											<label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name">Permintaan <span class="required">*</span>
+											<label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Username <span class="required">*</span>
 											</label>
 											<div class="col-md-8 col-sm-8 ">
-												<input type="number" name="permintaan" id="first-name" required="required" class="form-control ">
+												<input type="text" name="user_username" id="last-name" name="last-name" required="required" class="form-control">
 											</div>
 										</div>
 
 										<div class="item form-group">
-											<label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Persediaan <span class="required">*</span>
-											</label>
+											<label for="middle-name" class="col-form-label col-md-3 col-sm-3 label-align">Password <span class="required">*</label>
 											<div class="col-md-8 col-sm-8 ">
-												<input type="number" name="persediaan" id="last-name" name="last-name" required="required" class="form-control">
+												<input type="password" name="user_password" id="middle-name" class="form-control" type="text" name="middle-name">
 											</div>
 										</div>
 
 										<div class="item form-group">
-											<label for="middle-name" class="col-form-label col-md-3 col-sm-3 label-align">Produksi </label>
+											<label for="middle-name" class="col-form-label col-md-3 col-sm-3 label-align">Level Akses <span class="required">*</label>
 											<div class="col-md-8 col-sm-8 ">
-												<input type="number" name="produksi" id="middle-name" class="form-control" type="text" name="middle-name">
+												<select class="form-control" name="user_level" id="level">
+													<option value="admin"> Superuser</option>
+													<option value="user"> Staff</option>
+												</select>
 											</div>
 										</div>
 										
@@ -194,6 +199,103 @@
             		</div>
             	</div>
             </div>
+
+			<!-- modal update data -->
+			<?php foreach($update->result_array() as $row): ?>
+			<div id="update<?php echo $row['user_id'] ?>" class="modal fade bs-example-modal-md" tabindex="-1" role="dialog" aria-hidden="true"
+            	style="display: none;">
+            	<div class="modal-dialog modal-md">
+            		<div class="modal-content">
+
+            			<div class="modal-header">
+            				<h4 class="modal-title" id="add">Update data <b><?php echo  $row['user_fullname'] ?></b> ?</h4>
+            				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+            						aria-hidden="true">×</span>
+            				</button>
+            			</div>
+            			<div class="modal-body">
+            				<!-- form update user -->
+                            <div class="x_content">
+									<br />
+									<form method="POST" action="<?php echo base_url('user/updateUser') ?>" id="form-hitung" data-parsley-validate class="form-horizontal form-label-left">
+										<input type="hidden" value="<?php echo $row['user_id'] ?>" name="user_id" id="user_id">
+
+										<div class="item form-group">
+											<label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name">Nama Lengkap <span class="required">*</span>
+											</label>
+											<div class="col-md-8 col-sm-8 ">
+												<input type="text" name="user_fullname" value="<?php echo $row['user_fullname'] ?>" required="required" class="form-control ">
+											</div>
+										</div>
+
+										<div class="item form-group">
+											<label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Username <span class="required">*</span>
+											</label>
+											<div class="col-md-8 col-sm-8 ">
+												<input type="text" name="user_username" value="<?php echo $row['user_username'] ?>" required="required" class="form-control">
+											</div>
+										</div>
+
+										<div class="item form-group">
+											<label for="middle-name" class="col-form-label col-md-3 col-sm-3 label-align">Password <span class="required">*</label>
+											<div class="col-md-8 col-sm-8 ">
+												<input type="password" name="user_password" value="<?php echo $row['user_password'] ?>" class="form-control" type="text">
+											</div>
+										</div>
+
+										<div class="item form-group">
+											<label for="middle-name" class="col-form-label col-md-3 col-sm-3 label-align">Level Akses <span class="required">*</label>
+											<div class="col-md-8 col-sm-8 ">
+												<select class="form-control" name="user_level" id="level">
+												<?php if ($row['user_level']=='admin'): ?>
+													<option value="admin" selected>Superuser</option>
+													<option value="user">Staff</option>
+												<?php elseif ($row['user_level']=='user'): ?>
+													<option value="admin">Superuser</option>
+													<option value="user" selected>Staff</option>
+												<?php endif ?>
+												</select>
+											</div>
+										</div>
+										
+										<!-- <div class="ln_solid"></div> -->
+								</div>
+            			</div>
+            			<div class="modal-footer">
+            				<button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+            				<button type="submit" class="btn btn-primary">Simpan</button>
+            			</div>
+                        </form>
+
+            		</div>
+            	</div>
+            </div>
+			<?php endforeach; ?>
+
+			<!-- Modal Delete -->
+            <?php foreach($delete->result_array() as $i): ?>
+				<div id="delete<?php echo $i['user_id'] ?>" class="modal fade bs-example-modal-md" tabindex="-1" role="dialog" style="display: none;" aria-hidden="true">
+                    <div class="modal-dialog modal-md">
+                      <div class="modal-content">
+						<form method="POST" action="<?php echo base_url('user/deleteUser') ?>">
+                        <div class="modal-header">
+                          <h4 class="modal-title red" id="myModalLabel2"><i class="fa fa-warning"></i> Peringatan!</h4>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+							<input type="hidden" name="user_id" value="<?php echo $i['user_id'] ?>">
+                          <h4>Yakin ingin menghapus user <b class="red"><?php echo $i['user_fullname'] ?></b> ?</h4>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                          <button type="submit" class="btn btn-danger">Delete</button>
+                        </div>
+						</form>
+                      </div>
+                    </div>
+                  </div>
+            <?php endforeach ?>
 
 			<!-- /page content -->
 

@@ -7,6 +7,10 @@ class Decision extends CI_Controller {
     public function __construct()
     {
         parent::__construct();
+        if ($this->session->userdata('loggedin') != true) {
+            $url = base_url().'login';
+            redirect($url);
+        }
         //Do your magic here
         $this->load->model('m_dataproses');
         

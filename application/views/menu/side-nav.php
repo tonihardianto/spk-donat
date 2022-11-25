@@ -21,6 +21,9 @@
                       <li><a href="general_elements.html">General Elements</a></li>
                     </ul> -->
                   </li>
+                  <li>
+                    <!-- <a href="<?php echo base_url('report')?>"><i class=" fa fa-bar-chart"></i> Laporan <span class=" fa fa-chevron-right"></span></a> -->
+                  </li>
                 </ul>
               </div>
 

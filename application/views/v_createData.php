@@ -6,8 +6,9 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+	  <link rel="icon" href="<?php echo base_url('assets/images/icon.png'); ?>" type="image/ico" />
 
-    <title>Gentelella Alela! | </title>
+    <title>Decision Maker - Perhitungan </title>
 
     <!-- Bootstrap -->
     <link href="<?= base_url().'assets/vendors/bootstrap/dist/css/bootstrap.min.css';?>" rel="stylesheet">
@@ -67,7 +68,7 @@
 
             <!-- Form -->
           <div class="clearfix"></div>
-					<div id="<?php echo $y ?>" class="row">
+					<div id="<?php  ?>" class="row">
 						<div class="col-md-12 col-sm-12 ">
 							<div class="x_panel">
 								<div class="x_title">
@@ -113,6 +114,7 @@
 											</label>
 											<div class="col-md-6 col-sm-6 ">
 												<input type="text" name="permintaan" id="first-name" required="required" class="form-control ">
+                        <span class="red">Sample : Min: 24 Max: 500</span>
 											</div>
 										</div>
 
@@ -121,6 +123,7 @@
 											</label>
 											<div class="col-md-6 col-sm-6 ">
 												<input type="text" name="persediaan" id="last-name" name="last-name" required="required" class="form-control">
+                        <span class="red">Sample : Min: 10 Max: 100</span>
 											</div>
 										</div>
 
@@ -155,7 +158,8 @@
 						<div class="col-md-12 col-sm-12 ">
 							<div class="x_panel">
 								<div class="x_title">
-									<h2> <small>Perhitungan Fuzzy Tsukamoto</small></h2>
+									<h2> <small>Perhitungan Fuzzy Tsukamoto </small></h2>
+                  <!-- <div><span><a href="<?php echo base_url('decision') ?>" class="btn btn-primary" type="reset"><i class="fa fa-info-circle"> Lihat Hasil</a></i></span></div> -->
 									<ul class="nav navbar-right panel_toolbox">
 										<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 										</li>
@@ -587,5 +591,6 @@
       var hilang = document.getElementById('form-hilang');
       hilang.style.display = 'none';
     </script>
+
   </body>
 </html>
