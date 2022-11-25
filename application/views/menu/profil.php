@@ -1,5 +1,5 @@
 <div class="navbar nav_title" style="border: 0;">
-	<a href="<?php echo base_url(); ?>" class="site_title"><i class="fa fa-paw"></i> <span>Gentelella Alela!</span></a>
+	<a href="<?php echo base_url(); ?>" class="site_title"><i class="fa fa-paw"></i> <span>Donat is Bulat</span></a>
 </div>
 
 <div class="clearfix"></div>
@@ -11,6 +11,6 @@
 	</div>
 	<div class="profile_info">
 		<span>Welcome,</span>
-		<h2>John Doe</h2>
+		<h2>Administrator</h2>
 	</div>
 </div>
