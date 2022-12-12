@@ -23,9 +23,19 @@ class Dataproses extends CI_Controller {
     }
 
     function getPrediksi(){
+        $temp_persediaan = $this->m_dataproses->getPersediaan();
+        if($temp_persediaan->num_rows() > 0 ){
+            $result = $temp_persediaan->result_array();
+            foreach($result as $row){
+                $persediaan = $row['persediaan'];
+            }
+        } else {
+            $persediaan = 0;
+        }
+        //  print $persediaan;
+
         $tanggal = $this->input->post('tanggal');
         $permintaan = $this->input->post('permintaan');
-        $persediaan = $this->input->post('persediaan');
 
         $max_permintaan_temp = $this->m_dataproses->getMaxPermintaan();
         if($max_permintaan_temp->num_rows() > 0){
@@ -86,7 +96,7 @@ class Dataproses extends CI_Controller {
         $yt=($max_persediaan+$min_persediaan)/2; 
         $zt=($max_produksi+$min_produksi)/2; 
         $x=$this->input->post('permintaan'); 
-        $y=$this->input->post('persediaan');  
+        $y=$persediaan;  
         //Permintaan 
         if ($x<=$min_permintaan){ 
         $miu_pmt_turun=1; 
@@ -285,9 +295,14 @@ class Dataproses extends CI_Controller {
         $data['x'] = 'y-content';
         $data['y'] = 'form-hilang';
 
+        $id = $this->input->post('id');
         $user_id = $this->session->userdata('ses_id');
         $created_at = date('Y-m-d H:i:s');
 
+        // print $tanggal;
+
+        $this->m_dataproses->deletePermintaan($id);
+        $this->m_dataproses->insertDataset($tanggal, $permintaan, $persediaan, $produksi);
         $this->m_dataproses->insertPrediksi($tanggal, $permintaan, $persediaan, $produksi, $adonan, $user_id, $created_at);
         $this->load->view('v_createData', $data);
 

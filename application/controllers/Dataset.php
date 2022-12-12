@@ -12,9 +12,9 @@ class Dataset extends CI_Controller {
             $url = base_url().'login';
             redirect($url);
         }
-        
-        $this->load->model('m_dataproses');
 
+        $this->load->model('m_dataproses');
+        
     }
     
 
@@ -36,6 +36,18 @@ class Dataset extends CI_Controller {
         redirect('dataset');
 
     }
+
+    function cronJob(){
+        $tanggal = date('Y-m-d');
+        $permintaan = mt_rand(0, 100);
+        $persediaan = mt_rand(0, 500);
+        $produksi = mt_rand(2100, 2500);
+
+        $this->m_dataproses->insertDataset($tanggal, $permintaan, $persediaan, $produksi);
+
+    }
+
+    
 
 }
 

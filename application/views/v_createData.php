@@ -13,7 +13,7 @@
     <!-- Bootstrap -->
     <link href="<?= base_url().'assets/vendors/bootstrap/dist/css/bootstrap.min.css';?>" rel="stylesheet">
     <!-- Font Awesome -->
-    <link href="<?= base_url().'assets/vendors/font-awesome/css/font-awesome.min.css';?>" rel="stylesheet">
+    <link href="<?= base_url().'assets/vendors/font-awesome/css/all.min.css';?>" rel="stylesheet">
     <!-- NProgress -->
     <link href="<?= base_url().'assets/vendors/nprogress/nprogress.css';?>" rel="stylesheet">
     <!-- jQuery custom content scroller -->
@@ -68,7 +68,7 @@
 
             <!-- Form -->
           <div class="clearfix"></div>
-					<div id="<?php  ?>" class="row">
+					<!-- <div id="<?php  ?>" class="row">
 						<div class="col-md-12 col-sm-12 ">
 							<div class="x_panel">
 								<div class="x_title">
@@ -126,13 +126,6 @@
                         <span class="red">Sample : Min: 10 Max: 100</span>
 											</div>
 										</div>
-
-										<!-- <div class="item form-group">
-											<label for="middle-name" class="col-form-label col-md-3 col-sm-3 label-align">Produksi </label>
-											<div class="col-md-6 col-sm-6 ">
-												<input type="number" name="produksi" id="middle-name" class="form-control" type="text" name="middle-name">
-											</div>
-										</div> -->
 										
 										<div class="ln_solid"></div>
 										<div class="item form-group">
@@ -147,7 +140,7 @@
 								</div>
 							</div>
 						</div>
-					</div>
+					</div> -->
 
           </div>
             <!-- end Form -->
@@ -583,14 +576,14 @@
     <!-- Custom Theme Scripts -->
     <script src="<?= base_url().'assets/build/js/custom.min.js'; ?>"></script>
 
-    <script>
+    <!-- <script>
       var hide = document.getElementById('x-content');
       hide.style.display = 'none';
     </script>
     <script>
       var hilang = document.getElementById('form-hilang');
       hilang.style.display = 'none';
-    </script>
+    </script> -->
 
   </body>
 </html>

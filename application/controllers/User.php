@@ -12,6 +12,7 @@ class User extends CI_Controller {
             redirect($url);
         }
         //Do your magic here
+        $this->load->model('m_dataproses');
         $this->load->model('m_user');
         
     }

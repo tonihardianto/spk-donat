@@ -1,3 +1,8 @@
+<?php 
+  $this->load->model('m_dataproses');
+  $data = $this->m_dataproses->getTotalPermintaanUser()->result_array();
+  $permintaan = $this->m_dataproses->getTotalPermintaanUser()->num_rows();;
+?>
 <div class="top_nav">
           <div class="nav_menu">
               <div class="nav toggle">
@@ -23,24 +28,27 @@
                 <li role="presentation" class="nav-item dropdown open">
                   <a href="javascript:;" class="dropdown-toggle info-number" id="navbarDropdown1" data-toggle="dropdown" aria-expanded="false">
                     <i class="fa fa-envelope-o"></i>
-                    <span class="badge bg-green">0</span>
+                    <span class="badge bg-green"><?php echo $permintaan; ?></span>
                   </a>
                   <ul class="dropdown-menu list-unstyled msg_list" role="menu" aria-labelledby="navbarDropdown1">
-                    <!-- <li class="nav-item">
-                      <a class="dropdown-item">
-                        <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
+                    <?php foreach($data as $key): ?>
+                    <li class="nav-item">
+                      <a href="<?php echo base_url('permintaan'); ?>" class="dropdown-item">
+                        <span class="image"><i class=" fa fa-cube"></i></span>
                         <span>
-                          <span>John Smith</span>
-                          <span class="time">3 mins ago</span>
+                          <span><?php echo $key['permintaan'] ?> Pcs</span>
+                          <span class="time"> <?php echo $key['tanggal'] ?></span>
                         </span>
                         <span class="message">
-                          Film festivals used to be do-or-die moments for movie makers. They were where...
+                          Permintaan <b><?php echo $key['permintaan'] ?></b> Pcs untuk tanggal <b><?php echo $key['tanggal'] ?></b>
                         </span>
+
                       </a>
-                    </li> -->
+                    </li>
+                    <?php endforeach; ?>
                     <li class="nav-item">
                       <div class="text-center">
-                        <a class="dropdown-item">
+                        <a href="<?php echo base_url('permintaan'); ?>" class="dropdown-item">
                           <strong>See All Alerts</strong>
                           <i class="fa fa-angle-right"></i>
                         </a>
