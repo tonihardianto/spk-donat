@@ -65,13 +65,13 @@ class Dataproses extends CI_Controller {
         }
 
         $min_persediaan_temp = $this->m_dataproses->getMinPersediaan();
-        if($min_persediaan_temp->num_rows() > 0){
-            $result = $min_persediaan_temp->result_array();
-            foreach($result as $row){
-                $min_persediaan = $row['a'];
-            }
+            if($min_persediaan_temp->num_rows() > 0){
+                $result = $min_persediaan_temp->result_array();
+                foreach($result as $row){
+                    $min_persediaan = $row['a'];
+                }
 
-        }
+            }
 
         $max_produksi_temp = $this->m_dataproses->getMaxProduksi();
         if($max_produksi_temp->num_rows() > 0){
@@ -302,7 +302,7 @@ class Dataproses extends CI_Controller {
         // print $tanggal;
 
         $this->m_dataproses->deletePermintaan($id);
-        $this->m_dataproses->insertDataset($tanggal, $permintaan, $persediaan, $produksi);
+        $this->m_dataproses->insertDataset($tanggal, $permintaan, $persediaan, $produksi, $user_id);
         $this->m_dataproses->insertPrediksi($tanggal, $permintaan, $persediaan, $produksi, $adonan, $user_id, $created_at);
         $this->load->view('v_createData', $data);
 

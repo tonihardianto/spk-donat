@@ -30,8 +30,9 @@ class Dataset extends CI_Controller {
         $permintaan = $this->input->post('permintaan');
         $persediaan = $this->input->post('persediaan');
         $produksi = $this->input->post('produksi');
+        $userid = $this->session->userdata('ses_id');
 
-        $this->m_dataproses->insertDataset($tanggal, $permintaan, $persediaan, $produksi);
+        $this->m_dataproses->insertDataset($tanggal, $permintaan, $persediaan, $produksi,$userid);
 
         redirect('dataset');
 

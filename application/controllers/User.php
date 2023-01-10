@@ -47,13 +47,19 @@ class User extends CI_Controller {
         $user_id = $this->input->post('user_id');
         $user_fullname = $this->input->post('user_fullname');
         $user_username = $this->input->post('user_username');
-        $user_password = md5($this->input->post('user_password'));
+        $user_password = $this->input->post('user_password');
         $user_level = $this->input->post('user_level');
         $updated_at = date("Y-m-d H:m:d");
 
-        $this->m_user->updateUser($user_id, $user_username, $user_password, $user_fullname, $user_level, $updated_at);
-        $this->session->set_flashdata('success', 'User updated successfully');
-        redirect('user');
+        if (empty($user_password)) {
+            $this->m_user->updateUser_nopass($user_id, $user_username, $user_fullname, $user_level, $updated_at);
+            $this->session->set_flashdata('success', 'User updated successfully');
+            redirect('user');
+        }else{
+            $this->m_user->updateUser($user_id, $user_username, $user_password, $user_fullname, $user_level, $updated_at);
+            $this->session->set_flashdata('success', 'User updated successfully');
+            redirect('user');
+        }
 
     }
 

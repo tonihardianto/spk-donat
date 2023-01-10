@@ -27,7 +27,7 @@
 
                 <li role="presentation" class="nav-item dropdown open">
                   <a href="javascript:;" class="dropdown-toggle info-number" id="navbarDropdown1" data-toggle="dropdown" aria-expanded="false">
-                    <i class="fa fa-envelope-o"></i>
+                    <i class="fa fa-bell"></i>
                     <span class="badge bg-green"><?php echo $permintaan; ?></span>
                   </a>
                   <ul class="dropdown-menu list-unstyled msg_list" role="menu" aria-labelledby="navbarDropdown1">

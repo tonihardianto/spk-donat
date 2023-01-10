@@ -14,6 +14,7 @@ class Dashboard extends CI_Controller {
         }
         $this->load->model('m_dataproses');
         $this->load->model('m_user');
+        $this->load->model('m_permintaan');
         
     }
     
@@ -27,7 +28,7 @@ class Dashboard extends CI_Controller {
             'data' => json_encode($chart),
             'user' => $this->m_user->getTotalUser(),
             'sample' => $this->m_dataproses->getTotalDataset(),
-            'permintaan' => $this->m_dataproses->getTotalPermintaan(), 
+            'permintaan' => $this->m_permintaan->getTotalPermintaan(), 
             'persediaan' => $this->m_dataproses->getTotalPersediaan(),
             'produksi' => $this->m_dataproses->getTotalProduksi()
         );

@@ -23,7 +23,11 @@ class M_user extends CI_Model {
     }
 
     function updateUser($user_id,$user_username, $user_password, $user_fullname, $user_level, $updated_at){
-        return $this->db->query("UPDATE tb_user SET user_username='$user_username', user_password='$user_password', user_fullname='$user_fullname', user_level='$user_level', updated_at='$updated_at' WHERE user_id='$user_id'");
+        return $this->db->query("UPDATE tb_user SET user_username='$user_username', user_password=md5('$user_password'), user_fullname='$user_fullname', user_level='$user_level', updated_at='$updated_at' WHERE user_id='$user_id'");
+    }
+
+    function updateUser_nopass($user_id,$user_username, $user_fullname, $user_level, $updated_at){
+        return $this->db->query("UPDATE tb_user SET user_username='$user_username', user_fullname='$user_fullname', user_level='$user_level', updated_at='$updated_at' WHERE user_id='$user_id'");
     }
 
     function deleteUser($user_id){

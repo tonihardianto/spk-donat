@@ -78,7 +78,13 @@
 								<div class="x_title">
 									<h2>Halaman Data Pengguna</h2>
 									<ul class="nav navbar-right panel_toolbox">
-                                        <li><a href="#tambahdata" data-target="#tambahdata" data-toggle="modal" class="btn btn-info">Tambah Data <i class="fa fa-plus"></i></a></li>
+										<?php 
+											$level = $this->session->userdata('ses_level');
+											if($level == 'admin'){
+												echo "<li><a href='#tambahdata' data-target='#tambahdata' data-toggle='modal' class='btn btn-info'>Tambah Data <i class='fa fa-plus'></i></a></li>";
+												
+											}
+										?>
 										<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 										</li>
 										<li class="dropdown">
@@ -123,8 +129,15 @@
 												<td><b><?php echo $row['user_fullname'] ?></b></td>
 												<td><b><?php echo $row['user_level'] ?></b></td>
 												<td style="text-align: center;">
-													<button data-toggle="modal" data-target="#update<?php echo $row['user_id'] ?>"  class="btn btn-sm btn-info"> Update <i class="fa fa-edit"></i></button>
-													<button data-toggle="modal" data-target="#delete<?php echo $row['user_id'] ?>"  class="btn btn-sm btn-danger"> Delete <i class="fa fa-trash"></i></button>
+												
+												<?php 
+												$level = $this->session->userdata('ses_level');
+												if($level == 'admin'){
+													echo "<button data-toggle='modal' data-target='#update$row[user_id]'  class='btn btn-sm btn-info'> Update <i class='fa fa-edit'></i></button>";
+													echo "<button data-toggle='modal' data-target='#delete$row[user_id]'  class='btn btn-sm btn-danger'> Delete <i class='fa fa-trash'></i></button>";
+												} else {
+													echo "<a href='#' data-toggle='tooltip' data-placement='top' title='' data-original-title='Tidak ada aksi! Karena bukan Administrator.'><span class='badge badge-info'>Forbidden</span></a>";
+												} ?>
 												</td>
 											<?php endforeach; ?>
 										</tbody>
@@ -155,7 +168,7 @@
 									<form method="POST" action="<?php echo base_url('user/insertUser') ?>" id="form-hitung" data-parsley-validate class="form-horizontal form-label-left">
 
 										<div class="item form-group">
-											<label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name">Nama Lengkap <span class="required">*</span>
+											<label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name">Nama Cabang <span class="required">*</span>
 											</label>
 											<div class="col-md-8 col-sm-8 ">
 												<input type="text" name="user_fullname" id="first-name" required="required" class="form-control ">
@@ -239,7 +252,7 @@
 										<div class="item form-group">
 											<label for="middle-name" class="col-form-label col-md-3 col-sm-3 label-align">Password <span class="required">*</label>
 											<div class="col-md-8 col-sm-8 ">
-												<input type="password" name="user_password" value="<?php echo $row['user_password'] ?>" class="form-control" type="text">
+												<input type="password" name="user_password" class="form-control" type="text">
 											</div>
 										</div>
 

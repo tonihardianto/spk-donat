@@ -20,6 +20,8 @@
 	<!-- jQuery custom content scroller -->
 	<link href="<?= base_url().'assets/vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css';?>"
 		rel="stylesheet" />
+	<!-- datepicker -->
+	<link href="<?php echo base_url().'/assets/js/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css'?>" rel="stylesheet" >
 
 	<!-- Datatables -->
 
@@ -68,6 +70,7 @@
 				<div class="">
 					<div class="row">
 						<div class="col-md-12 col-sm-12 ">
+							<?php $this->load->view('menu/alert'); ?>
 							<div class="x_panel">
 								<div class="x_title">
 									<h2>Data Permintaan Tertunda</h2>
@@ -116,6 +119,9 @@
 												<td><b><?php echo $row['permintaan'] ?></b> Pcs</td>
                                                 <td style="text-align: center; color: white;">
 													<button data-toggle="modal" data-target="#proses<?php echo $row['id'] ?>"  class="btn btn-sm btn-info"><i class="fa fa-refresh"></i> Produksi </button>
+													<button data-toggle="modal" data-target="#update<?php echo $row['id'] ?>"  class="btn btn-sm btn-warning"><i class="fa fa-pen-to-square"></i> Update </button>
+													<button data-toggle="modal" data-target="#delete<?php echo $row['id'] ?>"  class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> Delete </button>
+
                                                 </td>
 											<?php endforeach; ?>
 										</tbody>
@@ -195,6 +201,80 @@
             		</div>
             	</div>
             </div>
+
+			<!-- modal update permintaan -->
+			<?php foreach ($update->result_array() as $row) :  ?>
+            <div id="update<?php echo $row['id'] ?>" class="modal fade bs-example-modal-md" tabindex="-1" role="dialog" aria-hidden="true"
+            	style="display: none;">
+            	<div class="modal-dialog modal-md">
+            		<div class="modal-content">
+
+            			<div class="modal-header">
+            				<h4 class="modal-title" id="add">Ubah Permintaan ?</h4>
+            				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+            						aria-hidden="true">×</span>
+            				</button>
+            			</div>
+            			<div class="modal-body">
+            				<!-- form update-->
+                            <div class="x_content">
+									<br />
+									<form method="POST" action="<?php echo base_url('permintaan/updatePermintaan') ?>" id="form-hitung" data-parsley-validate class="form-horizontal form-label-left">
+										<input type="hidden" name="id1" id="id1" value="<?php echo $row['id']; ?>">
+										<div class="item form-group">
+											<label class="col-form-label col-md-3 col-sm-3 label-align">Tanggal <span class="required">*</span>
+											</label>
+											<div class="col-md-8 col-sm-8 ">
+												<input type="text" value="<?php echo $row['tanggal'] ?>" id="tanggal1" name="tanggal1" class="form-control" placeholder="yyyy-mm-dd" autocomplete="off">
+											</div>
+										</div>
+
+										<div class="item form-group">
+											<label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name">Permintaan <span class="required">*</span>
+											</label>
+											<div class="col-md-8 col-sm-8 ">
+												<input type="number" value="<?php echo $row['permintaan']; ?>" name="permintaan1" id="permintaan1" required="required" class="form-control" autocomplete="off">
+											</div>
+										</div>
+										
+										<!-- <div class="ln_solid"></div> -->
+								</div>
+            			</div>
+            			<div class="modal-footer">
+            				<button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+            				<button type="submit" class="btn btn-primary">Simpan</button>
+            			</div>
+                        </form>
+
+            		</div>
+            	</div>
+            </div>
+			<?php endforeach; ?>
+
+			<!-- Modal Delete -->
+            <?php foreach($delete->result_array() as $i): ?>
+				<div id="delete<?php echo $i['id'] ?>" class="modal fade bs-example-modal-md" tabindex="-1" role="dialog" style="display: none;" aria-hidden="true">
+                    <div class="modal-dialog modal-md">
+                      <div class="modal-content">
+						<form method="POST" action="<?php echo base_url('permintaan/deletePermintaan') ?>">
+                        <div class="modal-header">
+                          <h4 class="modal-title red" id="myModalLabel2"><i class="fa fa-warning"></i> Peringatan!</h4>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+							<input type="hidden" name="id2" value="<?php echo $i['id'] ?>">
+                          <h4>Yakin ingin menghapus permintaan sebesar <b class="red"><?php echo $i['permintaan'] ?></b> Pcs ?</h4>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                          <button type="submit" class="btn btn-danger">Delete</button>
+                        </div>
+						</form>
+                      </div>
+                    </div>
+                  </div>
+            <?php endforeach ?>
 
             <!-- modal proses produksi -->
             <?php foreach($permintaan1->result_array() as $key): ?>
@@ -279,6 +359,11 @@
 	<script
 		src="<?= base_url().'assets/vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js';?>">
 	</script>
+	<!-- bootstrap-daterangepicker -->
+	<script src="<?php echo base_url('assets/vendors/moment/min/moment.min.js')?>"></script>
+	<script src="<?php echo base_url().'/assets/js/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js'?>"></script>
+	<!-- Sweetalert 2 -->
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.6.15/dist/sweetalert2.all.min.js"></script>
 
 	<!-- Datatables -->
 	<script src="<?= base_url().'assets/vendors/datatables.net/js/jquery.dataTables.min.js';?>"></script>
@@ -300,6 +385,14 @@
 
 	<!-- Custom Theme Scripts -->
 	<script src="<?= base_url().'assets/build/js/custom.min.js'; ?>"></script>
+	<script>
+		$('#tanggal1').datepicker({
+        format: 'yyyy-mm-dd',
+        todayHighlight: true,
+        autoclose: true,
+   	});
+	</script>
+
 </body>
 
 </html>

@@ -36,6 +36,7 @@ class Login extends CI_Controller {
                 $this->session->set_userdata('loggedin',TRUE);
                 $this->session->set_userdata('ses_id', $data['user_id']);
                 $this->session->set_userdata('ses_name', $data['user_fullname']);
+                $this->session->set_userdata('ses_level', $data['user_level']);
 
                 redirect('dashboard');
 
@@ -43,8 +44,9 @@ class Login extends CI_Controller {
                 $this->session->set_userdata('loggedin',TRUE);
                 $this->session->set_userdata('ses_id', $data['user_id']);
                 $this->session->set_userdata('ses_name', $data['user_fullname']);
+                $this->session->set_userdata('ses_level', $data['user_level']);
 
-                redirect('users/dashboard');
+                redirect('dashboard');
             }
 
         }else{
